@@ -16,7 +16,7 @@ class CreateIndicationsTable extends Migration
         Schema::create('indications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('object_id')->unsigned();
+            $table->bigInteger('facility_id')->unsigned();
             $table->bigInteger('device_id')->unsigned();
             $table->string('indication', 10);
             $table->string('indication_photo', 30);
@@ -29,9 +29,9 @@ class CreateIndicationsTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->foreign('object_id')
+            $table->foreign('facility_id')
                 ->references('id')
-                ->on('objects')
+                ->on('facilities')
                 ->onDelete('cascade');
 
             $table->foreign('device_id')

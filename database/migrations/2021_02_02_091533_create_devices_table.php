@@ -16,7 +16,7 @@ class CreateDevicesTable extends Migration
         Schema::create('devices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('object_id')->unsigned();
+            $table->bigInteger('facility_id')->unsigned();
             $table->string('number', 30);
             $table->string('type', 15);
             $table->string('location', 250);
@@ -30,9 +30,9 @@ class CreateDevicesTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->foreign('object_id')
+            $table->foreign('facility_id')
                 ->references('id')
-                ->on('objects')
+                ->on('facilities')
                 ->onDelete('cascade');
         });
     }
