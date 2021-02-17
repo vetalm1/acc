@@ -18,7 +18,7 @@ class CreateFacilitiesTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->string('address', 30);
             $table->string('town', 30);
-            $table->boolean('status');
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
     }

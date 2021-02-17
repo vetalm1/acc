@@ -21,5 +21,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/clhome', [App\Http\Controllers\Client\ClientHome::class, 'index'])->name('client-home');
 
-Route::resource('facility', \App\Http\Controllers\FacilityController::class);
+Route::resource('facility', App\Http\Controllers\CMS\Facility\FacilityController::class);
+Route::resource('device', App\Http\Controllers\CMS\Device\DeviceController::class);
+Route::resource('indication', App\Http\Controllers\Client\Indication\IndicationController::class);

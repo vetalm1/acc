@@ -5,6 +5,7 @@
 
 @section('content')
 
+    @include('blocks.header')
 
     @include('facility.blocks.forms.create')
 

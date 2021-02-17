@@ -19,7 +19,7 @@ class CreateIndicationsTable extends Migration
             $table->bigInteger('facility_id')->unsigned();
             $table->bigInteger('device_id')->unsigned();
             $table->string('indication', 10);
-            $table->string('indication_photo', 30);
+            $table->string('indication_photo', 30)->nullable();
             $table->timestamps();
         });
 

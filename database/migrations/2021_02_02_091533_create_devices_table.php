@@ -19,8 +19,8 @@ class CreateDevicesTable extends Migration
             $table->bigInteger('facility_id')->unsigned();
             $table->string('number', 30);
             $table->string('type', 15);
-            $table->string('location', 250);
-            $table->boolean('status');
+            $table->string('location', 250)->nullable();
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
 
