@@ -26,7 +26,7 @@
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="user_id" value="{{$item->user_id ?? ''}}">
                         <input type="hidden" name="facility_id" value="{{$item->facility_id ?? ''}}">
-                        <input type="hidden" name="device_id" value="{{$item->id ?? ''}}">
+                        <input type="hidden" name="device_id" value="{{$item->device_id ?? ''}}">
                         <input type="text" name="indication"
                                class=""
                                value="{{$item->indication ?? ''}}"

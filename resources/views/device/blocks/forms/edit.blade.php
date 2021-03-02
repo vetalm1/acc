@@ -14,8 +14,28 @@
         <label >Расположение прибора</label>
         <input type="text" name="location" value="{{$device->location}}" class="form-control" >
 
+        <br>
+        <label >Коэффициент</label>
+        <input type="text" name="ratio" value="{{$device->ratio}}" class="form-control" required>
+
+        <br>
+        <label >Тип Учета</label>
+        <select class="custom-select " required name="acc_type">
+            <option selected value="{{$device->acc_type}}">{{$device->acc_type}}</option>
+            <option value="внутренний">Внутренний</option>
+            <option value="внешний">Внешний</option>
+        </select>
+
+        <br>
+        <label>Примечание</label>
+        <input type="texy" name="note" value="{{$device->note}}" class="form-control">
+
         <label >Статус</label>
-        <input type="text" name="status" value="{{$device->status}}" class="form-control" >
+        <select class="custom-select " required name="status">
+            <option selected value="{{$device->status}}">{{$device->status}}</option>
+            <option selected value="1">Активный</option>
+            <option value="0">Не активный</option>
+        </select>
 
         <input type="hidden" name="user_id" value="{{$device->user_id}}">
 

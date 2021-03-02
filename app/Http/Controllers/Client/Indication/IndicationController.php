@@ -8,18 +8,31 @@ use App\Http\Controllers\Client\Indication\Request\UpdateIndicationRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Device;
 use App\Models\Indication;
+use App\services\IndicationsService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class IndicationController extends Controller
 {
+
+    /**
+     * @var IndicationsService
+     */
+    private $indicationsService;
+
+    public function __construct(IndicationsService $indicationsService)
+    {
+        $this->indicationsService = $indicationsService;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
-        $indication = Indication::all();
+        $indication = $this->indicationsService->getAllIndications();
 
         return view('indication.index', ['indication' => $indication]);
     }
@@ -28,7 +41,7 @@ class IndicationController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create(Request $request)
     {
@@ -40,27 +53,23 @@ class IndicationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(StoreIndicationRequest $request)
     {
-        $data = $request->getFormData();
-        $createdIndication = Indication::create($data);
+        $formData = $request->getFormData();
 
-        ( $createdIndication )
-            ? $status = 'показание ('.$createdIndication->indication.'), добавлено'
-            : $status = 'Ошибка добавления';
+        $status = $this->indicationsService->storeIndication($formData);
 
         return redirect()->back()->with('status', $status);
-        //return redirect(route('indication.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Indication  $indication
-     * @return \Illuminate\Http\Response
+     * @param Indication $indication
+     * @return Response
      */
     public function show(Indication $indication)
     {
@@ -70,8 +79,8 @@ class IndicationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Indication  $indication
-     * @return \Illuminate\Http\Response
+     * @param Indication $indication
+     * @return Response
      */
     public function edit(Indication $indication)
     {
@@ -81,23 +90,24 @@ class IndicationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Indication  $indication
-     * @return \Illuminate\Http\Response
+     * @param UpdateIndicationRequest $request
+     * @param Indication $indication
+     * @return Response
      */
     public function update(UpdateIndicationRequest $request, Indication $indication)
     {
         $formData = $request->getFormData();
-        $indication->update($formData);
 
-        return redirect(route('indication.show', ['indication' => $indication]));
+        $indication = $this->indicationsService->updateIndication($formData, $indication);
+
+        return redirect(route('device.show', ['device' => $indication->device_id]));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Indication  $indication
-     * @return \Illuminate\Http\Response
+     * @param Indication $indication
+     * @return void
      */
     public function destroy(Indication $indication)
     {

@@ -13,7 +13,7 @@ class ClientHome extends Controller
 
     public function index()
     {
-
+                            // TODO kill it----------------
         ( Auth::user() )
             ? $facility = Facility::where(['user_id' => Auth::user()->getAuthIdentifier()])->get()
             : $facility = Facility::all();

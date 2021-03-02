@@ -1,5 +1,14 @@
 
+{{ Breadcrumbs::render('device-create', $facility) }}
+
 <H1>Создать объект</H1>
+
+<span class="text-primary">
+    @if(Session::has('status'))
+        {{ Session::get('status') }}
+    @endif
+</span>
+
 <form method="post" action="{{route('device.store')}}">
 {{ csrf_field() }}
     <div class="form-group">
@@ -14,6 +23,21 @@
         <br>
         <label >Расположение</label>
         <input type="text" name="location" class="form-control" required>
+
+        <br>
+        <label >Коэффициент</label>
+        <input type="text" name="ratio" value="1" class="form-control" required>
+
+        <br>
+        <label >Тип Учета</label>
+        <select class="custom-select " required name="acc_type">
+            <option selected value="внутреннй">Внутренний</option>
+            <option value="внешний">Внешний</option>
+        </select>
+
+        <br>
+        <label>Примечание</label>
+        <input type="texy" name="note" class="form-control">
 
         <br><br>
         <label >Статус</label>

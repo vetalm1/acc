@@ -7,11 +7,23 @@ use App\Http\Controllers\CMS\Device\Request\UpdateDeviceRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Device;
 use App\Models\Facility;
+use App\services\DevicesService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class DeviceController extends Controller
 {
+
+    /**
+     * @var DevicesService
+     */
+    private $devicesService;
+
+    public function __construct(DevicesService $devicesService)
+    {
+        $this->devicesService = $devicesService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +31,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $device = Device::all();
+        $device = $this->devicesService->getAllDevices();
 
         return view('device.index', ['device' => $device]);    }
 
@@ -44,15 +56,17 @@ class DeviceController extends Controller
      */
     public function store(StoreDeviceRequest $request)
     {
-        $data = $request->getFormData();
-        Device::create($data);
+        $formData = $request->getFormData();
 
-        return redirect(route('device.index'));    }
+        $status = $this->devicesService->storeDevice($formData);
+
+        return redirect()->back()->with('status', $status);
+    }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Device  $device
+     * @param Device $device
      * @return Response
      */
     public function show(Device $device)
@@ -63,7 +77,7 @@ class DeviceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Device  $device
+     * @param Device $device
      * @return Response
      */
     public function edit(Device $device)
@@ -75,13 +89,13 @@ class DeviceController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateDeviceRequest $request
-     * @param \App\Models\Device $device
+     * @param Device $device
      * @return Response
      */
     public function update(UpdateDeviceRequest $request, Device $device)
     {
         $formData = $request->getFormData();
-        $device->update($formData);
+        $device = $this->devicesService->updateDevice($formData, $device);
 
         return redirect(route('device.show', ['device' => $device]));
     }
@@ -89,7 +103,7 @@ class DeviceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Device  $device
+     * @param Device $device
      * @return Response
      */
     public function destroy(Device $device)

@@ -6,21 +6,36 @@ use App\Http\Controllers\CMS\Facility\Request\StoreFacilityRequest;
 use App\Http\Controllers\CMS\Facility\Request\UpdateDeviceRequest;
 use App\Http\Controllers\CMS\Facility\Request\UpdateFacilityRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Device;
 use App\Models\Facility;
+use App\Models\Indication;
+use App\Models\LastIndication;
 use App\Models\User;
+use App\services\FacilitiesService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 
 class FacilityController extends Controller
 {
     /**
+     * @var FacilitiesService
+     */
+    private $facilitiesService;
+
+    public function __construct(FacilitiesService $facilitiesService)
+    {
+        $this->facilitiesService = $facilitiesService;
+    }
+
+    /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
-        $facility = Facility::all();
+        $facility = $this->facilitiesService->getAllFacilities();
 
         return view('facility.index', ['facility' => $facility]);
     }
@@ -28,7 +43,7 @@ class FacilityController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -40,22 +55,22 @@ class FacilityController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreFacilityRequest $request
+     * @return Response
      */
     public function store(StoreFacilityRequest $request)
     {
-        $data = $request->getFormData();
-        Facility::create($data);
+        $formData = $request->getFormData();
+        $facility = $this->facilitiesService->storeFacility($formData);
 
-        return redirect(route('facility.index'));
+        return view('facility.show', ['facility' => $facility]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Facility  $facility
-     * @return \Illuminate\Http\Response
+     * @param Facility $facility
+     * @return Response
      */
     public function show(Facility $facility)
     {
@@ -66,7 +81,7 @@ class FacilityController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Facility $facility
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Facility $facility)
     {
@@ -83,7 +98,8 @@ class FacilityController extends Controller
     public function update(UpdateFacilityRequest $request, Facility $facility)
     {
         $formData = $request->getFormData();
-        $facility->update($formData);
+
+        $facility = $this->facilitiesService->updateFacility($formData, $facility);
 
         return redirect(route('facility.show', ['facility' => $facility]));
 
@@ -92,8 +108,8 @@ class FacilityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Facility  $object
-     * @return \Illuminate\Http\Response
+     * @param Facility $object
+     * @return Response
      */
     public function destroy(Facility $object)
     {

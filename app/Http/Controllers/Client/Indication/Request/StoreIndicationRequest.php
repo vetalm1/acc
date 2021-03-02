@@ -24,6 +24,8 @@ class StoreIndicationRequest extends FormRequest
 
     public function getFormData()
     {
+//        $trimData = $this->request->only('indication','user_id', 'facility_id', 'device_id');
+
         $data = $this->request->all();
 
         $data = Arr::except($data, ['_token',]);

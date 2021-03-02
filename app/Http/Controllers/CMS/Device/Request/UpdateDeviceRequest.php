@@ -22,6 +22,9 @@ class UpdateDeviceRequest extends FormRequest
             'type' => 'required|max:15',
             'location' => 'required|max:250',
             'status' => 'required|boolean',
+            'ratio' => 'required',
+            'note' => 'max:250',
+            'acc_type' => 'required|max:10',
         ];
     }
 

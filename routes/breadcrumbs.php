@@ -13,7 +13,17 @@ Breadcrumbs::for('facility', function ($breadcrumbs, $facility) {
     $breadcrumbs->push($facility->address, route('facility.show', $facility->id));
 });
 
+Breadcrumbs::for('device-create', function ($breadcrumbs, $facility) {
+    $breadcrumbs->parent('facility', $facility);
+    $breadcrumbs->push('Добавление прибора', route('device.create'));
+});
+
 Breadcrumbs::for('device', function ($breadcrumbs, $device) {
     $breadcrumbs->parent('facility', $device->facility);
     $breadcrumbs->push($device->number, route('device.show',$device->id));
+});
+
+Breadcrumbs::for('report', function ($breadcrumbs, $facility) {
+    $breadcrumbs->parent('facility', $facility);
+    $breadcrumbs->push('Отчет внутренний', route('report', $facility->id));
 });
