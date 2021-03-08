@@ -1,5 +1,5 @@
 
-{{ Breadcrumbs::render('device-create', $facility) }}
+
 
 <H1>Создать объект</H1>
 

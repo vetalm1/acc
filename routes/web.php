@@ -22,3 +22,4 @@ Route::get('/cms', [App\Http\Controllers\CMS\CmsController::class, 'index'])->na
 Route::get('/f-list', [App\Http\Controllers\CMS\CmsController::class, 'facilityList'])->name('facility-list');  //TODO переобозвать в cms-f-list
 Route::get('/f-list/{facility}', [App\Http\Controllers\CMS\CmsController::class, 'facility'])->name('facility-item'); //TODO переобозвать в cms-f-list{}
 Route::get('/cms-device/{device}', [App\Http\Controllers\CMS\CmsController::class, 'device'])->name('cms-device-item');
+Route::get('/cms-device/create/{device}', [App\Http\Controllers\CMS\CmsController::class, 'createDevice'])->name('cms-device-create');

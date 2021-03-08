@@ -45,3 +45,8 @@ Breadcrumbs::for('cms-device', function ($breadcrumbs, $device) {
     $breadcrumbs->parent('cms-facility', $device->facility);
     $breadcrumbs->push($device->number, route('cms-device-item',$device->id));
 });
+
+Breadcrumbs::for('cms-create-device', function ($breadcrumbs, $facility) {
+    $breadcrumbs->parent('cms-facility', $facility);
+    $breadcrumbs->push('Добавление прибора учета');
+});

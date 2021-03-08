@@ -16,7 +16,7 @@
             <h4>{{$facility->address}}</h4>
 
             <div class="row">
-                <a class="primary ml-3" href="{{route('device.create',['device' => $facility->id])}}">Добавить прибор</a>
+                <a class="primary ml-3" href="{{route('cms-device-create',['device' => $facility->id])}}">Добавить прибор</a>
             </div>
 
             <div class="row">
