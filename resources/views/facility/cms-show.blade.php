@@ -7,9 +7,9 @@
 
     @include('blocks.header')
 
-    {{ Breadcrumbs::render('facility', $facility) }}
+    {{ Breadcrumbs::render('cms-facility', $facility) }}
 
-    @include('facility.blocks.item')
+    @include('facility.blocks.cms-item')
 
     @include('blocks.footer')
 

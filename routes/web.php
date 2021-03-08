@@ -2,17 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -28,3 +17,8 @@ Route::resource('device', App\Http\Controllers\CMS\Device\DeviceController::clas
 Route::resource('indication', App\Http\Controllers\Client\Indication\IndicationController::class);
 
 Route::get('/report/{facility}', [App\Http\Controllers\Client\Report\ReportController::class, 'main'])->name('report');
+
+Route::get('/cms', [App\Http\Controllers\CMS\CmsController::class, 'index'])->name('cms');
+Route::get('/f-list', [App\Http\Controllers\CMS\CmsController::class, 'facilityList'])->name('facility-list');  //TODO переобозвать в cms-f-list
+Route::get('/f-list/{facility}', [App\Http\Controllers\CMS\CmsController::class, 'facility'])->name('facility-item'); //TODO переобозвать в cms-f-list{}
+Route::get('/cms-device/{device}', [App\Http\Controllers\CMS\CmsController::class, 'device'])->name('cms-device-item');

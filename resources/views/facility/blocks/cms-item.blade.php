@@ -28,7 +28,7 @@
         <div class="col-md-4 border rounded ml-auto">
             @foreach ($facility->devices as $item)
 
-                <a href="{{route('device.show',['device' => $item->id])}}">№ - {{$item->number ?? ''}} </a>
+                <a href="{{route('cms-device-item',['device' => $item->id])}}">№ - {{$item->number ?? ''}} </a>
 
                 <span class=""> - ({{$item->type ?? ''}})</span> <br>
                 <span class="">{{$item->location ?? ''}} </span> <br>

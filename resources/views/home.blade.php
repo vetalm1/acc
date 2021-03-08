@@ -19,6 +19,11 @@
                         @endif
 
                         {{ __('You are logged in!') }}
+                            <p>
+                                <a class="btn btn-primary" href="{{route('client-home') }}">Мои объекты</a>
+                            </p>
+
+
                     </div>
                 </div>
             </div>

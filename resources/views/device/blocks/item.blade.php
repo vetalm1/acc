@@ -1,4 +1,3 @@
-{{ Breadcrumbs::render('device', $device) }}
 
 <div class="container">
     <H1>Прибор</H1>

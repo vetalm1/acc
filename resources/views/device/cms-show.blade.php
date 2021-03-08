@@ -7,7 +7,7 @@
 
     @include('blocks.header')
 
-    {{ Breadcrumbs::render('device', $device) }}
+    {{ Breadcrumbs::render('cms-device', $device) }}
 
     @include('device.blocks.item')
 

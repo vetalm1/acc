@@ -1,15 +1,13 @@
 @extends('layouts.app')
 
 
-@section('title', 'Прибор')
+@section('title', 'Панель менеджера')
 
 @section('content')
 
     @include('blocks.header')
 
-    {{ Breadcrumbs::render('device', $device) }}
-
-    @include('device.blocks.item')
+    @include('cms.blocks.main')
 
     @include('blocks.footer')
 

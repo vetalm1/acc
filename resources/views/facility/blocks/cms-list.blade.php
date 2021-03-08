@@ -16,7 +16,7 @@
         <tr>
             <td>{{$item->user->name}}</td>
             <td>{{$item->town}}</td>
-            <td><a class="" href="{{route('facility.show',['facility' => $item->id] )}}">{{$item->address}}</a></td>
+            <td><a class="" href="{{route('facility-item',['facility' => $item->id] )}}">{{$item->address}}</a></td>
             <td>{{$item->address}}</td>
             <td>{{$item->status}}</td>
             <td>{{$item->updated_at}}</td>

@@ -28,3 +28,6 @@
         </li>
     </ul>
 @endguest
+
+<a class="text-warning" href="{{ route('cms')  }}">CMS</a>
+<b><a href="{{ route('client-home')  }}">Мои объекты</a></b>
